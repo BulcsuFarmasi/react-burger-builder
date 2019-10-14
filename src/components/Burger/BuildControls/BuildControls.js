@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import classes from "./BuildControls.module.css";
 
@@ -11,30 +12,41 @@ const controls = [
   { label: "Meat", type: "meat" }
 ];
 
-const buildControls = props => {
-  return (
-    <div className={classes.BuildControls}>
-      <p>
-        Current Price: <strong>{props.price.toFixed(2)}</strong>
-      </p>
-      {controls.map(control => (
-        <BuildControl
-          key={control.label}
-          label={control.label}
-          added={() => props.ingredientAdded(control.type)}
-          removed={() => props.ingredientRemoved(control.type)}
-          disabled={props.disabled[control.type]}
-        />
-      ))}
-      <button
-        className={classes.OrderButton}
-        disabled={!props.purchasable}
-        onClick={props.ordered}
-      >
-        ORDER NOW
-      </button>
-    </div>
-  );
+class BuildControls extends Component {
+  render() {
+    return (
+      <div className={classes.BuildControls}>
+        <p>
+          Current Price: <strong>{this.props.price.toFixed(2)}</strong>
+        </p>
+        {controls.map(control => (
+          <BuildControl
+            key={control.label}
+            label={control.label}
+            added={() => this.props.ingredientAdded(control.type)}
+            removed={() => this.props.ingredientRemoved(control.type)}
+            disabled={this.props.disabled[control.type]}
+          />
+        ))}
+        <button
+          className={classes.OrderButton}
+          disabled={!this.props.purchasable}
+          onClick={this.props.ordered}
+        >
+          ORDER NOW
+        </button>
+      </div>
+    );
+  }
+}
+
+BuildControls.propTypes = {
+  price: PropTypes.number,
+  ingredientAdded: PropTypes.func,
+  ingredientRemoved: PropTypes.func,
+  disabled: PropTypes.array,
+  purchasable: PropTypes.bool,
+  ordered: PropTypes.func
 };
 
-export default buildControls;
+export default BuildControls;

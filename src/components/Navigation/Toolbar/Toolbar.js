@@ -1,20 +1,30 @@
-import React from "react";
+import React, { Component } from "react";
+
+import PropTypes from "prop-types";
 
 import classes from "./Toolbar.module.css";
 import Logo from "../../Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
 
-const toolbar = props => (
-  <header className={classes.Toolbar}>
-    <DrawerToggle clicked={props.drawerToggleClicked} />
-    <div className={classes.Logo}>
-      <Logo />
-    </div>
-    <nav className={classes.DesktopOnly}>
-      <NavigationItems />
-    </nav>
-  </header>
-);
+class Toolbar extends Component {
+  render() {
+    return (
+      <header className={classes.Toolbar}>
+        <DrawerToggle clicked={this.props.drawerToggleClicked} />
+        <div className={classes.Logo}>
+          <Logo />
+        </div>
+        <nav className={classes.DesktopOnly}>
+          <NavigationItems />
+        </nav>
+      </header>
+    );
+  }
+}
 
-export default toolbar;
+Toolbar.propTypes = {
+  drawerToggleClicked: PropTypes.func
+};
+
+export default Toolbar;

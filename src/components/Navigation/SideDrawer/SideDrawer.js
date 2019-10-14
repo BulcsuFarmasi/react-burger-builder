@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import Logo from "../../Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
@@ -7,25 +8,32 @@ import Aux from "../../../hoc/Auxiliary";
 
 import classes from "./SideDrawer.module.css";
 
-const sideDrawer = props => {
-  let attachedClasses = [classes.SideDrawer, classes.Close];
+class SideDrawer extends Component {
+  render() {
+    let attachedClasses = [classes.SideDrawer, classes.Close];
 
-  if (props.open) {
-    attachedClasses = [classes.SideDrawer, classes.Open];
-  }
-  return (
-    <Aux>
-      <Backdrop show={props.open} clicked={props.closed} />
-      <div className={attachedClasses.join(" ")}>
-        <div className={classes.Logo}>
-          <Logo />
+    if (this.props.open) {
+      attachedClasses = [classes.SideDrawer, classes.Open];
+    }
+    return (
+      <Aux>
+        <Backdrop show={this.props.open} clicked={this.props.closed} />
+        <div className={attachedClasses.join(" ")}>
+          <div className={classes.Logo}>
+            <Logo />
+          </div>
+          <nav>
+            <NavigationItems />
+          </nav>
         </div>
-        <nav>
-          <NavigationItems />
-        </nav>
-      </div>
-    </Aux>
-  );
+      </Aux>
+    );
+  }
+}
+
+SideDrawer.propTypes = {
+  open: PropTypes.bool,
+  clicked: PropTypes.func
 };
 
-export default sideDrawer;
+export default SideDrawer;

@@ -1,14 +1,25 @@
-import React from "react";
+import React, { Component } from "react";
+
+import PropTypes from "prop-types";
 
 import classes from "./Button.module.css";
 
-const button = props => (
-  <button
-    className={[classes.Button, classes[props.btnType]].join(" ")}
-    onClick={props.clicked}
-  >
-    {props.children}
-  </button>
-);
+class Button extends Component {
+  render() {
+    return (
+      <button
+        className={[classes.Button, classes[this.props.btnType]].join(" ")}
+        onClick={this.props.clicked}
+      >
+        {this.props.children}
+      </button>
+    );
+  }
+}
 
-export default button;
+Button.propTypes = {
+  btnType: PropTypes.string,
+  clicked: PropTypes.func
+};
+
+export default Button;
