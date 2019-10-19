@@ -44,7 +44,7 @@ BuildControls.propTypes = {
   price: PropTypes.number,
   ingredientAdded: PropTypes.func,
   ingredientRemoved: PropTypes.func,
-  disabled: PropTypes.array,
+  disabled: PropTypes.object,
   purchasable: PropTypes.bool,
   ordered: PropTypes.func
 };
