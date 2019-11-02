@@ -9,13 +9,47 @@ import classes from "./ContactData.module.css";
 
 class ContactData extends Component {
   state = {
-    name: "",
-    email: "",
-    address: {
-      street: "",
-      zipCode: "",
-      city: "",
-      country: ""
+    orderForm: {
+      name: {
+        elementType: "input",
+        elementConfig: { type: "text", placeholder: "Your Name" },
+        value: ""
+      },
+      street: {
+        elementType: "input",
+        elementConfig: { type: "text", placeholder: "Street" },
+        value: ""
+      },
+      zipCode: {
+        elementType: "input",
+        elementConfig: { type: "text", placeholder: "ZIP Code" },
+        value: ""
+      },
+      city: {
+        elementType: "input",
+        elementConfig: { type: "text", placeholder: "City" },
+        value: ""
+      },
+      country: {
+        elementType: "input",
+        elementConfig: { type: "text", placeholder: "Country" },
+        value: ""
+      },
+      email: {
+        elementType: "input",
+        elementConfig: { type: "text", placeholder: "Your Mail" },
+        value: ""
+      },
+      deliveryMethod: {
+        elementType: "select",
+        elementConfig: {
+          options: [
+            { value: "fastest", displayValue: "Fastest" },
+            { value: "cheapest", displayValue: "Cheapest" }
+          ]
+        },
+        value: ""
+      }
     }
   };
 
@@ -25,18 +59,7 @@ class ContactData extends Component {
     this.setState({ loading: true });
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.price,
-      consumer: {
-        name: "Bulcsú Farmasi",
-        address: {
-          street: "Kisköre utca 20",
-          zipCode: "1116",
-          city: "Budapest",
-          country: "Hungary"
-        },
-        email: "bulcsu.farmasi@gmail.com"
-      },
-      deliveryMethod: "fastest"
+      price: this.props.price
     };
     axios
       .post("/orders.json", order)
@@ -52,33 +75,28 @@ class ContactData extends Component {
   render() {
     let form = (
       <form>
+        <Input elementType="..." elementConfig="..." value="..." />
         <Input
-          inputType="input"
-          type="text"
-          name="name"
-          placeholder="Your Name"
-        />
-        <Input
-          inputType="input"
+          inputtype="input"
           type="email"
           name="email"
           placeholder="Your Mail"
         />
         <Input
-          inputType="input"
+          inputtype="input"
           type="text"
           name="street"
           placeholder="Street"
         />
         <Input
-          inputType="input"
+          inputtype="input"
           type="text"
           name="zip"
           placeholder="Zip Code"
         />
-        <Input inputType="input" type="text" name="city" placeholder="City" />
+        <Input inputtype="input" type="text" name="city" placeholder="City" />
         <Input
-          inputType="input"
+          inputtype="input"
           type="text"
           name="country"
           placeholder="Country"
