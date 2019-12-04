@@ -6,7 +6,6 @@ import BurgerIngredient from "./BurgerIngredient/BurgerIngedient";
 
 class Burger extends Component {
   render() {
-    console.log(this.props);
     let transformedIngredients = Object.keys(this.props.ingredients)
       .map(igKey => {
         return [...Array(this.props.ingredients[igKey])].map((_, i) => {
