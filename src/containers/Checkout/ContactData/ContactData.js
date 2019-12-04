@@ -7,7 +7,7 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import axios from "../../../axios-orders";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../store/actions/index";
-import { updateObject } from "../../../shared/utility";
+import { checkValidity, updateObject } from "../../../shared/utility";
 
 import classes from "./ContactData.module.css";
 
@@ -70,7 +70,8 @@ class ContactData extends Component {
         elementConfig: { type: "text", placeholder: "Your Mail" },
         value: "",
         validation: {
-          required: true
+          required: true,
+          isEmail: true
         },
         valid: false,
         touched: false
@@ -90,26 +91,6 @@ class ContactData extends Component {
     },
     formIsValid: false
   };
-
-  checkValidity(value, rules) {
-    let isValid = true;
-    if (!rules) {
-      return true;
-    }
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-
-    return isValid;
-  }
 
   orderHandler = event => {
     event.preventDefault();
@@ -133,7 +114,7 @@ class ContactData extends Component {
       this.state.orderForm[inputIdentifier],
       {
         value: event.target.value,
-        valid: this.checkValidity(
+        valid: checkValidity(
           event.target.value,
           this.state.orderForm[inputIdentifier].validation
         ),
