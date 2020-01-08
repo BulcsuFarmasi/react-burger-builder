@@ -41,39 +41,16 @@ export const logoutSucceed = () => {
 export const checkAuthTimeout = expirationTime => {
   return {
     type: actionTypes.AUTH_CHECK_TIMEOUT,
-    expirationTime: 10
+    expirationTime
   };
 };
 
 export const auth = (email, password, isSignup) => {
-  return dispatch => {
-    dispatch(authStart());
-    const authData = {
-      email,
-      password,
-      returnSecureToken: true
-    };
-    let url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBqvbtoxAGQ9fg9ThFiCM2K21b_3-U-tMA";
-    if (!isSignup) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBqvbtoxAGQ9fg9ThFiCM2K21b_3-U-tMA";
-    }
-    axios
-      .post(url, authData)
-      .then(response => {
-        const expirationDate = new Date(
-          new Date().getTime() + response.data.expiresIn * 1000
-        );
-        localStorage.setItem("token", response.data.idToken);
-        localStorage.setItem("expirationDate", expirationDate);
-        localStorage.setItem("userId", response.data.localId);
-        dispatch(authSuccess(response.data.idToken, response.data.localId));
-        dispatch(checkAuthTimeout(response.data.expiresIn));
-      })
-      .catch(error => {
-        dispatch(authFail(error.response.data.error));
-      });
+  return {
+    type: actionTypes.AUTH_USER,
+    email,
+    password,
+    isSignup
   };
 };
 
