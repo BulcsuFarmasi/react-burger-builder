@@ -1,7 +1,9 @@
 export {
   addIngredient,
   initIngredients,
-  removeIngredient
+  removeIngredient,
+  setIngredients,
+  fetchIngredientsFailed
 } from "./burgerBuilder";
 
 export { fetchOrders, purchaseBurger, purchaseInit } from "./order";
